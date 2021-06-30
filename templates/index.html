@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <title>Client</title>
+</head>
+
+<body>
+<div id="app">
+    <form method="post" action="/tutorials">
+        <label class="col-form-label">Имя</label>
+        <input v-model="name" type="text" name="name" :class="[{err: showErrorName=validation(name, regExpName) },
+             {ok: !showErrorName}, 'form-control']" placeholder="Имя">
+        <error id="name"></error>
+
+        <label class="col-form-label">Телефон</label>
+        <input v-model="phone" type="text" name="phone" :class="[{err: showErrorPhone=validation(phone, regExpPhone)},
+             {ok: !showErrorPhone}, 'form-control']" placeholder="+7(000)000-0000">
+        <error id="phone"></error>
+
+        <label class="col-form-label">E-mail</label>
+        <input v-model="email" type="email" name="email" :class="[{err: showErrorEmail=validation(email, regExpEmail)},
+             {ok: !showErrorEmail}, 'form-control']" placeholder="Email">
+        <error id="email"></error>
+
+        <label for="message" class="col-form-label">Сообщение</label>
+        <textarea name="message" cols="30" class="form-control" rows="10" placeholder="Текст сообщения"></textarea>
+        <label for="message" name="message-error" class='error hide'>Сообщение не может быть пустым!</label>
+
+        <button class="btn btn-primary">Отправить</button>
+    </form>
+
+    <div>
+    <h3>Список</h3>
+    {% for tutorial in tutorials %}
+    <div>{{ tutorial }}</div>
+    {% endfor %}
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="{{url_for('static',filename='js/errorComp.js')}}"></script>
+<script src="{{url_for('static',filename='js/main.js')}}"></script>
+</body>
+
+</html>
